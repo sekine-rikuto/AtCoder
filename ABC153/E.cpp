@@ -24,16 +24,12 @@ int main(){
 	dp[0] = 0;
 	REP(i, 1, h+1){
 		REP(j, n){
-			ll tmp = (i / magic[j].first) * magic[j].second;
-			if( i % magic[j].first )	tmp += magic[j].second;
-			if( tmp != 0 ){
-				if( dp[i] == -1 )	dp[i] = tmp;
-				else				dp[i] = min(dp[i], tmp);
-			}
-
 			if( i - magic[j].first >= 0 ){
 				if( dp[i] == -1 )	dp[i] = dp[i - magic[j].first] + magic[j].second;
 				else				dp[i] = min(dp[i], dp[i - magic[j].first] + magic[j].second);
+			}else{
+				if( dp[i] == -1 )	dp[i] = dp[0] + magic[j].second;
+				else				dp[i] = min(dp[i], dp[0] + magic[j].second);
 			}
 		}
 	}
